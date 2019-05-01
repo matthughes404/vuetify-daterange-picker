@@ -1,84 +1,61 @@
 <template>
   <div class="v-date-range">
-    <v-menu
-      v-model="menu"
-      :close-on-content-click="false"
-      offset-y
-      v-bind="menuProps"
-    >
-      <v-text-field
-        slot="activator"
-        class="v-date-range__input-field"
-        :value="inputValue"
-        readonly
-        :disabled="disabled"
-        :placeholder="placeholder"
-        v-bind="inputProps"
-      ></v-text-field>
-      <v-card class="v-date-range__menu-content">
-        <v-card-text>
-          <div
-            :data-days="highlightDates.length"
-            :class="{
-              'v-date-range__pickers': true,
-              'v-date-range--highlighted': highlightDates.length
-            }"
-          >
-            <v-card-title v-if="$slots.title">
-              <slot name="title" v-if="$slots.title"></slot>
-            </v-card-title>
-            <v-card-text>
-              <div class="v-date-range__content">
-                <v-list v-if="!noPresets" class="mr-4">
-                  <v-subheader>{{ presetLabel }}</v-subheader>
-                  <v-list-tile
-                    v-for="(preset, index) in presets"
-                    v-model="isPresetActive[index]"
-                    :key="index"
-                    @click="selectPreset(index)"
-                  >
-                    <v-list-tile-content>
-                      {{ preset.label }}
-                    </v-list-tile-content>
-                  </v-list-tile>
-                </v-list>
-                <v-date-picker
-                  class="mr-4 v-date-range__picker--start v-date-range__picker"
-                  v-model="pickerStart"
-                  :locale="locale"
-                  :min="min"
-                  :max="pickerEnd || max"
-                  :no-title="noTitle"
-                  :next-icon="nextIcon"
-                  :prev-icon="prevIcon"
-                  :events="highlightDates"
-                  :event-color="highlightClasses"
-                ></v-date-picker>
-                <v-date-picker
-                  class="v-date-range__picker--end v-date-range__picker"
-                  v-model="pickerEnd"
-                  :locale="locale"
-                  :min="pickerStart || min"
-                  :max="max"
-                  :no-title="noTitle"
-                  :next-icon="nextIcon"
-                  :prev-icon="prevIcon"
-                  :events="highlightDates"
-                  :event-color="highlightClasses"
-                ></v-date-picker>
-              </div>
-            </v-card-text>
-          </div>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn flat @click="menu = false">Cancel</v-btn>
-          <v-btn @click="applyRange" color="primary" :disabled="!bothSelected"
-            >Apply</v-btn
-          >
-        </v-card-actions>
-      </v-card>
-    </v-menu>
+    <v-card class="v-date-range__menu-content">
+      <v-card-text>
+        <div
+          :data-days="highlightDates.length"
+          :class="{
+            'v-date-range__pickers': true,
+            'v-date-range--highlighted': highlightDates.length
+          }"
+        >
+          <v-card-title v-if="$slots.title">
+            <slot name="title" v-if="$slots.title"></slot>
+          </v-card-title>
+          <v-card-text>
+            <div class="v-date-range__content">
+              <v-list v-if="!noPresets" class="mr-4">
+                <v-subheader>{{ presetLabel }}</v-subheader>
+                <v-list-tile
+                  v-for="(preset, index) in presets"
+                  v-model="isPresetActive[index]"
+                  :key="index"
+                  @click="selectPreset(index)"
+                >
+                  <v-list-tile-content>
+                    {{ preset.label }}
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-list>
+              <v-date-picker
+                class="mr-4 v-date-range__picker--start v-date-range__picker"
+                v-model="pickerStart"
+                :locale="locale"
+                :min="min"
+                :max="pickerEnd || max"
+                :no-title="noTitle"
+                :next-icon="nextIcon"
+                :prev-icon="prevIcon"
+                :events="highlightDates"
+                :event-color="highlightClasses"
+              ></v-date-picker>
+              <v-date-picker
+                class="v-date-range__picker--end v-date-range__picker"
+                v-model="pickerEnd"
+                :locale="locale"
+                :min="pickerStart || min"
+                :max="max"
+                :no-title="noTitle"
+                :next-icon="nextIcon"
+                :prev-icon="prevIcon"
+                :events="highlightDates"
+                :event-color="highlightClasses"
+              ></v-date-picker>
+            </div>
+          </v-card-text>
+        </div>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 <script>
