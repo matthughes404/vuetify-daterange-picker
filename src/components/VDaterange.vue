@@ -239,6 +239,7 @@ export default {
     selectPreset(presetIndex) {
       this.pickerStart = this.presets[presetIndex].range[0];
       this.pickerEnd = this.presets[presetIndex].range[1];
+      this.updateRange();
     },
     updateRange() {
       this.$emit('input', {
