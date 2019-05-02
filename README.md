@@ -1,11 +1,7 @@
-# Vuetify Daterange Picker
+# Vuetify Daterange Picker REDUX
 
-The missing date range picker for Vuetify JS you have been looking for
+A slightly different version of the missing date range picker for Vuetify JS
 
-## Installation, Usage & API
+## Original component
 
-https://vuetify-daterange-picker.gitbook.io/docs
-
----
-
-If you liked the component, please consider giving it a ⭐️.
+https://github.com/praveenpuglia/vuetify-daterange-picker
