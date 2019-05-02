@@ -30,6 +30,7 @@
               <v-date-picker
                 class="mr-4 v-date-range__picker--start v-date-range__picker"
                 v-model="pickerStart"
+                v-on:input="updateRange"
                 :locale="locale"
                 :min="min"
                 :max="pickerEnd || max"
@@ -42,6 +43,7 @@
               <v-date-picker
                 class="v-date-range__picker--end v-date-range__picker"
                 v-model="pickerEnd"
+                v-on:input="updateRange"
                 :locale="locale"
                 :min="pickerStart || min"
                 :max="max"
@@ -207,32 +209,6 @@ export default {
     }
   },
   methods: {
-    /**
-     * Emit the input event with the updated range data.
-     * This makes v-model work.
-     */
-    applyRange() {
-      this.$emit('input', {
-        start: this.pickerStart,
-        end: this.pickerEnd
-      });
-      this.menu = false;
-    },
-    /**
-     * Called every time the menu is closed.
-     * It also emits an event to tell the parent
-     * that the menu has closed.
-     *
-     * Upon closing the datepicker values are set
-     * to the current selected value.
-     */
-    closeMenu() {
-      // Reset the changed values for datepicker models.
-      this.pickerStart = this.value.start;
-      this.pickerEnd = this.value.end;
-      this.highlight();
-      this.$emit('menu-closed');
-    },
     formatDate(date, fmt) {
       return format(parse(date), fmt);
     },
@@ -263,17 +239,15 @@ export default {
     selectPreset(presetIndex) {
       this.pickerStart = this.presets[presetIndex].range[0];
       this.pickerEnd = this.presets[presetIndex].range[1];
+    },
+    updateRange() {
+      this.$emit('input', {
+        start: this.pickerStart,
+        end: this.pickerEnd
+      });
     }
   },
   watch: {
-    // Watching to see if the menu is closed.
-    menu(isOpen) {
-      if (!isOpen) {
-        this.closeMenu();
-      } else {
-        this.highlight();
-      }
-    },
     pickerStart: 'highlight',
     pickerEnd: 'highlight'
   }
